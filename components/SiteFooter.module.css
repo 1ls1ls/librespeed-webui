@@ -1,0 +1,29 @@
+.footer {
+  padding: 16px 0 24px;
+  position: relative;
+  z-index: 1;
+}
+
+.inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  text-align: center;
+}
+
+.line {
+  margin: 0;
+  font-size: 0.76rem;
+  color: var(--c-text-faint);
+}
+
+.link {
+  color: var(--c-text-dim);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.link:hover {
+  color: var(--c-text);
+}

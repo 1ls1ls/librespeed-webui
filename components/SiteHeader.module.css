@@ -1,0 +1,73 @@
+.header {
+  position: relative;
+  z-index: 2;
+  padding: 18px 0;
+}
+
+.inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--c-text);
+}
+
+.mark {
+  width: 30px;
+  height: 30px;
+  flex: none;
+}
+
+.wordmark {
+  font-size: 1.12rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 14px;
+  border-radius: 999px;
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: var(--c-text-dim);
+  transition:
+    color var(--t-fast) var(--ease-out),
+    background var(--t-fast) var(--ease-out);
+}
+
+.link:hover {
+  color: var(--c-text);
+  background: var(--c-surface);
+  text-decoration: none;
+}
+
+.link[data-current] {
+  color: var(--c-text);
+  background: var(--c-surface);
+}
+
+.linkIcon {
+  font-size: 1rem;
+  opacity: 0.8;
+}
+
+@media (max-width: 420px) {
+  .wordmark {
+    display: none;
+  }
+}

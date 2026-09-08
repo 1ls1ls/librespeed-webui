@@ -1,0 +1,169 @@
+.gauge {
+  position: relative;
+  width: min(78vw, 440px);
+  aspect-ratio: 1;
+  margin: 0 auto;
+
+  /*
+   * The phase colour is set here rather than on each child, so one attribute
+   * change recolours the arc, the lit ticks, the glow and the readout together.
+   */
+  --c-phase: var(--c-accent);
+  --c-phase-glow: var(--c-download-glow);
+  transition: filter var(--t-base) var(--ease-out);
+}
+
+.gauge[data-phase="download"] {
+  --c-phase: var(--c-download);
+  --c-phase-glow: var(--c-download-glow);
+}
+
+.gauge[data-phase="upload"] {
+  --c-phase: var(--c-upload);
+  --c-phase-glow: var(--c-upload-glow);
+}
+
+.gauge[data-phase="ping"] {
+  --c-phase: var(--c-teal);
+  --c-phase-glow: var(--c-download-glow);
+}
+
+.svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+  overflow: visible;
+}
+
+/* The unlit scale: present but recessive, so the dial reads as an instrument
+   even before a test starts. */
+.ticksIdle line {
+  stroke: var(--c-line-soft);
+  stroke-width: 2;
+}
+
+.ticksIdle .tickMajor,
+.ticksLit .tickMajor {
+  stroke-width: 3;
+}
+
+.ticksLit line {
+  stroke: var(--c-phase);
+  stroke-width: 2;
+  filter: drop-shadow(0 0 4px var(--c-phase));
+  transition: stroke var(--t-base) var(--ease-out);
+}
+
+.labels text {
+  fill: var(--c-text-faint);
+  font-family: var(--font-sans);
+  font-size: 15px;
+  font-weight: 500;
+  text-anchor: middle;
+  user-select: none;
+}
+
+/*
+ * Cooler than --c-line, which is where this started. Against the cyan wash the
+ * dial sits in during a download, a neutral grey reads distinctly warm by
+ * simultaneous contrast; biasing the unlit track blue keeps it reading as
+ * "not yet reached" rather than as a second, reddish scale.
+ */
+.track {
+  fill: none;
+  stroke: rgba(130, 145, 180, 0.16);
+  stroke-width: 3;
+  stroke-linecap: round;
+}
+
+.arc {
+  fill: none;
+  stroke-width: 5;
+  stroke-linecap: round;
+  transition: stroke var(--t-base) var(--ease-out);
+}
+
+.head {
+  fill: #fff;
+  filter: drop-shadow(0 0 8px var(--c-phase-glow));
+  transition: opacity var(--t-fast) linear;
+}
+
+/* --------------------------------------------------------------- centre --- */
+
+.center {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  /* The SVG owns pointer events for nothing; the button inside re-enables them. */
+  pointer-events: none;
+}
+
+.center > * {
+  grid-area: 1 / 1;
+}
+
+.readout {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  opacity: 0;
+  transform: scale(0.94);
+  transition:
+    opacity var(--t-base) var(--ease-out),
+    transform var(--t-base) var(--ease-out);
+}
+
+/*
+ * The readout and the GO button occupy the same cell and cross-fade. Swapping
+ * them by unmounting would drop the dial's centre for a frame and make the
+ * transition read as a flicker rather than a change of state.
+ */
+.gauge[data-active] .readout {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.readoutValue {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(3.2rem, 13vw, 5.2rem);
+  line-height: 1;
+  letter-spacing: -0.01em;
+  color: var(--c-text);
+  text-shadow: 0 0 32px color-mix(in srgb, var(--c-phase) 45%, transparent);
+}
+
+.readoutUnit {
+  font-size: 0.9rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--c-text-dim);
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/*
+ * The centre control yields to the live readout while a phase is measuring.
+ * Targeted through a data attribute rather than a class because the button
+ * lives in another CSS module, where class names are rewritten and would not
+ * match this selector.
+ */
+.gauge[data-active] [data-gauge-button] {
+  opacity: 0;
+  transform: scale(0.9);
+  pointer-events: none;
+}

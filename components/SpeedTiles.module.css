@@ -1,0 +1,87 @@
+.tiles {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(24px, 8vw, 96px);
+  justify-items: center;
+  width: 100%;
+  max-width: 560px;
+  margin: 0 auto;
+}
+
+.tile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  min-width: 0;
+  --tile-color: var(--c-download);
+}
+
+.tile[data-kind="upload"] {
+  --tile-color: var(--c-upload);
+}
+
+.head {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  color: var(--c-text-dim);
+  transition: color var(--t-base) var(--ease-out);
+}
+
+/* The active phase claims its colour; the other stays quiet rather than
+   competing for attention with the number that is currently changing. */
+.tile[data-active] .head {
+  color: var(--tile-color);
+}
+
+.icon {
+  display: grid;
+  place-items: center;
+  font-size: 1.05rem;
+  color: var(--tile-color);
+  opacity: 0.55;
+  transition: opacity var(--t-base) var(--ease-out);
+}
+
+.tile[data-active] .icon {
+  opacity: 1;
+}
+
+.label {
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.unit {
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--c-text-faint);
+}
+
+.value {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(2.1rem, 8.5vw, 3.1rem);
+  line-height: 1.1;
+  color: var(--c-text);
+  transition: text-shadow var(--t-base) var(--ease-out);
+}
+
+.tile[data-active] .value {
+  text-shadow: 0 0 26px color-mix(in srgb, var(--tile-color) 40%, transparent);
+}
+
+.placeholder {
+  color: var(--c-text-faint);
+}
+
+@media (max-width: 520px) {
+  .tiles {
+    gap: 20px;
+  }
+}

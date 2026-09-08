@@ -1,0 +1,27 @@
+services:
+  speedtest:
+    build:
+      context: .
+      # Uncomment to serve from a subdirectory; it must match the path your
+      # proxy mounts the app at, and it is fixed at build time.
+      # args:
+      #   NEXT_PUBLIC_BASE_PATH: /speedtest
+    image: librespeed-webui
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      SPEEDTEST_BRAND_NAME: LibreSpeed
+      SPEEDTEST_TAGLINE: Speed Test
+      SPEEDTEST_TELEMETRY: "1"
+      SPEEDTEST_TELEMETRY_LEVEL: basic
+      # Turn on ONLY if a proxy you control terminates connections in front of
+      # this container and sets X-Real-IP. See .env.example.
+      TRUST_PROXY: "0"
+    volumes:
+      # The SQLite database and the share-id salt. Without this, every restart
+      # invalidates previously issued result links.
+      - speedtest-data:/app/data
+
+volumes:
+  speedtest-data:

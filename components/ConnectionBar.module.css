@@ -1,0 +1,102 @@
+.bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(14px, 4vw, 40px);
+  width: 100%;
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 14px 18px;
+  border: 1px solid var(--c-line);
+  border-radius: var(--radius-lg);
+  background: color-mix(in srgb, var(--c-surface) 70%, transparent);
+  backdrop-filter: blur(6px);
+}
+
+.side {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+  flex: 1;
+}
+
+.right {
+  justify-content: flex-end;
+  text-align: right;
+}
+
+.badge {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  flex: none;
+  border-radius: 50%;
+  background: var(--c-surface-2);
+  color: var(--c-text-dim);
+  font-size: 1.05rem;
+}
+
+.text {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  line-height: 1.25;
+}
+
+.title {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--c-text);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.detail {
+  font-size: 0.8rem;
+  color: var(--c-text-dim);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.change {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--c-accent);
+  text-align: inherit;
+  transition: color var(--t-fast) var(--ease-out);
+}
+
+.change:hover {
+  color: var(--c-download-glow);
+  text-decoration: underline;
+}
+
+.rule {
+  width: 1px;
+  align-self: stretch;
+  background: var(--c-line);
+  flex: none;
+}
+
+@media (max-width: 560px) {
+  .bar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+
+  .right {
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+    text-align: left;
+  }
+
+  .rule {
+    width: auto;
+    height: 1px;
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "name": "Speed Test",
+  "short_name": "Speed Test",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#141526",
+  "theme_color": "#141526",
+  "icons": [{ "src": "./favicon.svg", "sizes": "any", "type": "image/svg+xml" }]
+}

@@ -1,0 +1,126 @@
+.button {
+  position: relative;
+  width: 46%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  pointer-events: auto;
+  background: radial-gradient(circle at 50% 35%, rgba(28, 191, 255, 0.09), transparent 70%);
+  transition:
+    transform var(--t-base) var(--ease-out),
+    opacity var(--t-base) var(--ease-out);
+}
+
+.button:hover:not(:disabled) {
+  transform: scale(1.035);
+}
+
+.button:active:not(:disabled) {
+  transform: scale(0.975);
+}
+
+.button:disabled {
+  cursor: default;
+}
+
+/*
+ * The ring is a separate element so it can carry a gradient border. A gradient
+ * cannot be a border-color, so it is painted as a border-box background with a
+ * flat padding-box background laid over it.
+ */
+.ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  background:
+    linear-gradient(var(--c-bg), var(--c-bg)) padding-box,
+    var(--gradient-brand) border-box;
+  opacity: 0.75;
+  transition:
+    opacity var(--t-base) var(--ease-out),
+    box-shadow var(--t-base) var(--ease-out);
+}
+
+.button:hover:not(:disabled) .ring {
+  opacity: 1;
+  box-shadow:
+    0 0 28px rgba(28, 191, 255, 0.28),
+    inset 0 0 24px rgba(28, 191, 255, 0.12);
+}
+
+/*
+ * A slow breath on the idle ring. It is the one thing on an otherwise static
+ * page that says the dial is waiting for input, and it stops the moment there
+ * is anything else to look at.
+ */
+.button[data-mode="go"] .ring {
+  animation: breathe 3.6s var(--ease-in-out) infinite;
+}
+
+@keyframes breathe {
+  0%,
+  100% {
+    box-shadow: 0 0 0 rgba(28, 191, 255, 0);
+  }
+  50% {
+    box-shadow: 0 0 26px rgba(28, 191, 255, 0.22);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .button[data-mode="go"] .ring {
+    animation: none;
+  }
+}
+
+.face {
+  position: relative;
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(2.4rem, 9vw, 3.4rem);
+  letter-spacing: 0.06em;
+  color: var(--c-text);
+  display: grid;
+  place-items: center;
+}
+
+.icon {
+  font-size: clamp(2rem, 7vw, 2.6rem);
+  stroke-width: 1.6;
+}
+
+/* Three dots that fill while the engine warms up and the IP is fetched. */
+.dots {
+  display: flex;
+  gap: 8px;
+}
+
+.dots i {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--c-text-dim);
+  animation: pulse 1.2s var(--ease-in-out) infinite;
+}
+
+.dots i:nth-child(2) {
+  animation-delay: 0.15s;
+}
+
+.dots i:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 0.3;
+    transform: scale(0.85);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}

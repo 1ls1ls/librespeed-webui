@@ -1,0 +1,26 @@
+[
+  {
+    "name": "Head office — Sydney",
+    "server": "https://speedtest-syd.example.internal/",
+    "dlURL": "api/garbage",
+    "ulURL": "api/empty",
+    "pingURL": "api/empty",
+    "getIpURL": "api/getIP"
+  },
+  {
+    "name": "Branch — Melbourne",
+    "server": "https://speedtest-mel.example.internal/",
+    "dlURL": "api/garbage",
+    "ulURL": "api/empty",
+    "pingURL": "api/empty",
+    "getIpURL": "api/getIP"
+  },
+  {
+    "name": "A LibreSpeed PHP node",
+    "server": "https://legacy.example.internal/speedtest/",
+    "dlURL": "backend/garbage.php",
+    "ulURL": "backend/empty.php",
+    "pingURL": "backend/empty.php",
+    "getIpURL": "backend/getIP.php"
+  }
+]

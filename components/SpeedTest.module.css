@@ -1,0 +1,72 @@
+.stage {
+  position: relative;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(12px, 2.4vh, 26px);
+  width: 100%;
+  max-width: var(--shell-width);
+  margin: 0 auto;
+  padding: 4px 20px 36px;
+}
+
+/*
+ * A single tinted wash behind the dial, recoloured per phase.
+ *
+ * One element rather than a background on the page itself, so switching phases
+ * is a colour transition on a composited layer instead of a repaint of the
+ * whole document behind everything else on screen.
+ */
+.glow {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: radial-gradient(58vw 58vw at 50% 46%, var(--glow-color, transparent), transparent 65%);
+  transition: background var(--t-slow) var(--ease-out);
+}
+
+.underDial {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  min-height: 1.5rem;
+}
+
+.cancel {
+  font-size: 0.84rem;
+  font-weight: 500;
+  color: var(--c-text-dim);
+  padding: 4px 10px;
+  border-radius: 999px;
+  transition: color var(--t-fast) var(--ease-out);
+}
+
+.cancel:hover {
+  color: var(--c-text);
+}
+
+.error {
+  margin: 0;
+  font-size: 0.86rem;
+  color: var(--c-danger);
+  text-align: center;
+}
+
+.note {
+  margin: 0;
+  font-size: 0.84rem;
+  color: var(--c-text-dim);
+  text-align: center;
+}
+
+/* The dial dominates on a phone; everything else tightens around it. */
+@media (max-height: 760px) {
+  .stage {
+    gap: 10px;
+    padding-bottom: 20px;
+  }
+}

@@ -1,0 +1,80 @@
+.dialog {
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: inherit;
+  max-width: min(560px, calc(100vw - 32px));
+  width: 100%;
+  max-height: calc(100dvh - 48px);
+  overflow: visible;
+}
+
+.dialog::backdrop {
+  background: rgba(8, 9, 20, 0.72);
+  backdrop-filter: blur(4px);
+}
+
+.dialog[open] .panel {
+  animation: rise var(--t-base) var(--ease-out) both;
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.panel {
+  display: flex;
+  flex-direction: column;
+  max-height: calc(100dvh - 48px);
+  border: 1px solid var(--c-line);
+  border-radius: var(--radius-lg);
+  background: var(--c-surface);
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 18px 20px;
+  border-bottom: 1px solid var(--c-line);
+}
+
+.title {
+  margin: 0;
+  font-size: 1.05rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.close {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  color: var(--c-text-dim);
+  font-size: 1.1rem;
+  transition:
+    background var(--t-fast) var(--ease-out),
+    color var(--t-fast) var(--ease-out);
+}
+
+.close:hover {
+  background: var(--c-surface-2);
+  color: var(--c-text);
+}
+
+.body {
+  padding: 20px;
+  overflow-y: auto;
+}
